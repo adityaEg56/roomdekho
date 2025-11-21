@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Add Room - RoomDekho</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <h1>Add New Room</h1>
+
+      <div class="header-actions">
+        <select id="themeSelect" class="theme-select">
+          <option value="pink">Warm</option>
+          <option value="blue">Calm</option>
+          <option value="dark">Dark</option>
+        </select>
+
+        <a href="index.html" class="btn btn-small btn-secondary">Home</a>
+        <a href="finder.html" class="btn btn-small">Finder</a>
+      </div>
+    </header>
+
+    <main>
+      <form id="roomForm" class="form-card">
+
+        <label>Room Title</label>
+        <input type="text" id="title" required>
+
+        <label>Room Price</label>
+        <input type="number" id="price" required>
+
+        <label>Room Type</label>
+        <select id="type">
+          <option value="Boys Room">Boys Room</option>
+          <option value="Girls Room">Girls Room</option>
+          <option value="PG">PG</option>
+          <option value="Hostel">Hostel</option>
+          <option value="College Hostel">College Hostel</option>
+          <option value="House / Flat">House / Flat</option>
+        </select>
+
+        <label>Description</label>
+        <textarea id="desc" required></textarea>
+
+        <label>Location</label>
+        <input type="text" id="location" required>
+        <button type="button" class="btn" onclick="getLocation()">Use Current Location</button>
+
+        <label>Upload Photos (Max 10)</label>
+        <input type="file" id="photos" multiple accept="image/*">
+
+        <label>Owner Phone Number (for Leads)</label>
+        <input type="text" id="ownerPhone" placeholder="10 digit number" required>
+
+        <button type="submit" class="btn" style="margin-top:15px;">Add Room</button>
+
+      </form>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    // Theme — ensure sync with local saved value
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof applySavedTheme === 'function') applySavedTheme();
+
+      const sel = document.getElementById('themeSelect');
+      if (sel) {
+        sel.value = localStorage.getItem('rd_theme') || 'pink';
+        sel.addEventListener('change', e => {
+          if (typeof setTheme === 'function') setTheme(e.target.value);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

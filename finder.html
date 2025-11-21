@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Find Rooms - RoomDekho</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Find Rooms Across India</h1>
+      <div class="header-actions">
+        <select id="themeSelect" class="theme-select" title="Choose theme" aria-label="Choose theme">
+          <option value="pink">Warm</option>
+          <option value="blue">Calm</option>
+          <option value="dark">Dark</option>
+        </select>
+        <a href="index.html" class="btn btn-small btn-secondary">Home</a>
+        <a href="login.html" class="btn btn-small">Login</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="form-card">
+        <label>Category</label>
+        <select id="filterType" onchange="filterRooms()">
+          <option value="">All Categories</option>
+          <option value="Boys Room">Boys Room</option>
+          <option value="Girls Room">Girls Room</option>
+          <option value="PG">PG</option>
+          <option value="Hostel">Hostel</option>
+          <option value="College Hostel">College Hostel</option>
+          <option value="House / Flat">House / Flat</option>
+        </select>
+
+        <label style="margin-top:10px;">Search</label>
+        <input id="searchInput" placeholder="Search by title, address or description..." oninput="onSearchChange()" />
+
+        <div id="room-list" style="margin-top:12px;"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lead popup (shared UI). This must match functions in script.js -->
+  <div id="leadPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+       background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
+    <div style="background:var(--card-bg); color:var(--text); padding:18px; width:92%; max-width:420px; border-radius:12px;">
+      <h3>Contact Owner</h3>
+      <label>Your Name</label>
+      <input type="text" id="leadName" required>
+      <label>Your Phone</label>
+      <input type="text" id="leadPhone" required>
+      <label>Your Message</label>
+      <textarea id="leadMessage" required></textarea>
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="btn" onclick="submitLead()">Send Inquiry</button>
+        <button class="btn btn-secondary" onclick="closeLead()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Ensure theme selector shows saved value and is wired (script.js also wires it)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof applySavedTheme === 'function') applySavedTheme();
+      const sel = document.getElementById('themeSelect');
+      if (sel) {
+        sel.value = localStorage.getItem('rd_theme') || sel.value || 'pink';
+        sel.addEventListener('change', (e) => {
+          if (typeof setTheme === 'function') setTheme(e.target.value);
+        });
+      }
+
+      // If script.js provides showRoomsOnLoad or renderRooms, they will run automatically.
+      // But to be safe, call filterRooms() once to render all rooms.
+      if (typeof filterRooms === 'function') filterRooms();
+    });
+  </script>
+</body>
+</html>

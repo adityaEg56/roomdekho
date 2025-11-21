@@ -1,0 +1,260 @@
+/* ===================================================================
+   style.css - RoomDekho (complete ready-to-replace)
+   - Themeable (pink / blue / dark)
+   - Owner/Finder red box buttons
+   - Forms, cards, previews, select fixes, lead popup
+   =================================================================== */
+
+/* ---------------- Theme variables & presets ---------------- */
+:root{
+  --bg: #b185a9;                /* default warm background */
+  --text: #ffffff;
+  --card-bg: rgba(255,255,255,0.06);
+  --accent: #FF2B2B;
+  --accent-2: #2b7cff;
+  --muted: rgba(255,255,255,0.85);
+  --input-bg: rgba(255,255,255,0.04);
+  --input-border: rgba(255,255,255,0.12);
+  --radius: 12px;
+  --max-width: 1000px;
+}
+
+/* Theme variants (apply class to <html> or <body>) */
+.theme-pink {
+  --bg: linear-gradient(180deg, #fbe4da, #f5d1c2);
+  --text: #4a2d2a;
+  --card-bg: rgba(255,255,255,0.55);
+  --accent: #FF2B2B;
+  --muted: #5b3d39;
+}
+.theme-blue {
+  --bg: #d7e9ff;
+  --text: #062034;
+  --card-bg: rgba(255,255,255,0.95);
+  --accent: #0b6cf2;
+  --muted: rgba(6,32,52,0.78);
+}
+.theme-dark {
+  --bg: #0f2420;
+  --text: #ffffff;
+  --card-bg: rgba(255,255,255,0.03);
+  --accent: #0FAF4B;
+  --muted: rgba(255,255,255,0.9);
+}
+
+/* ---------------- Global reset & base ---------------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display: flex;
+  justify-content: center;
+  padding: 18px;
+}
+
+/* Container */
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; }
+
+/* Header */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom: 6px;
+}
+.header h1 { margin: 6px 0; color: var(--accent); font-size:20px; }
+.header-actions { display:flex; gap:8px; align-items:center; }
+
+/* Theme select */
+.theme-select {
+  padding:6px 8px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+/* Cards */
+.form-card, .home-card, .preview-card {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: var(--radius);
+  margin-top: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Buttons */
+.btn {
+  background: var(--accent);
+  color: white;
+  padding: 10px 14px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor:pointer;
+  display: inline-block;
+  text-align: center;
+}
+.btn-small { padding:6px 10px; font-size:13px; }
+.btn-secondary { background: rgba(255,255,255,0.12); color: var(--text); }
+.map-btn { background: var(--accent-2); }
+
+/* Owner / Finder red box special (explicit) */
+.owner-btn, .finder-btn {
+  background: #ff2b2b;
+  color: #fff !important;
+  border: 2px solid #ff2b2b;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(255,43,43,0.18);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.owner-btn:hover, .finder-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255,43,43,0.22);
+}
+
+/* Forms */
+label { display:block; margin-top:12px; font-weight:600; color: var(--muted); }
+input, textarea, select {
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text);
+  outline: none;
+  font-size:14px;
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
+
+/* Focus */
+input:focus, textarea:focus, select:focus, .btn:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.28);
+}
+
+/* Select & option fixes for visibility across browsers */
+select {
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  font-weight: 600;
+  padding: 9px;
+  border-radius: 8px;
+  appearance: none;
+}
+select option {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  padding: 6px;
+}
+/* per-option color (optional) */
+option[value="Boys Room"] { color: #2b7cff; }
+option[value="Girls Room"] { color: #ff55aa; }
+option[value="PG"] { color: #22cc88; }
+option[value="Hostel"] { color: #ffaa33; }
+option[value="College Hostel"] { color: #aa77ff; }
+option[value="House / Flat"] { color: #ff4444; }
+
+/* Small / muted text */
+.small, .muted, .meta { font-size:13px; color: var(--muted); }
+
+/* Room-list grid & cards */
+#room-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.room-card {
+  border-radius: 12px;
+  padding: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.room-card h2 { margin:0 0 6px 0; color: var(--accent); }
+.room-card p { margin:6px 0; color: var(--text); font-size:14px; }
+
+/* Media */
+.room-img, .room-video { width:100%; border-radius:8px; margin-top:8px; display:block; object-fit:cover; }
+.preview-grid { display:grid; gap:8px; grid-template-columns: repeat(auto-fit, minmax(100px,1fr)); margin-top:8px; }
+.preview-grid img { width:100%; height:80px; object-fit:cover; border-radius:8px; }
+
+/* Lead popup styles (centered) */
+#leadPopup {
+  display: none; 
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center; align-items: center; z-index: 9999;
+}
+#leadPopup .lead-card {
+  background: var(--card-bg); color: var(--text);
+  padding: 18px; width:92%; max-width:420px; border-radius:12px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Footer */
+footer.meta { text-align:center; margin-top:16px; font-size:13px; color:var(--muted); }
+
+/* Tiny helpers */
+.flex { display:flex; gap:8px; align-items:center; }
+.center { text-align:center; }
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .header { flex-direction: column; align-items:flex-start; gap:10px; }
+  .owner-btn, .finder-btn { width: 100%; padding: 10px; }
+  .room-card { padding: 10px; }
+  .header-actions { width:100%; justify-content:space-between; }
+}
+
+/* Accessibility: focus-visible */
+:focus-visible { outline: 3px solid rgba(255,255,255,0.12); outline-offset: 2px; }
+.theme-pink {
+  --bg: linear-gradient(180deg, #fbe4da, #f5d1c2);
+  --text: #4a2d2a;
+  --card-bg: rgba(255,255,255,0.55);
+  --accent: #FF2B2B;
+  --muted: #5b3d39;
+}
+input, textarea {
+    border: 1px solid rgba(255,255,255,0.15) !important;
+}
+/* Force inputs to use theme card background + correct text color */
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  -webkit-text-fill-color: var(--text) !important; /* for Chrome text color */
+  box-shadow: inset 0 0 0 1000px var(--card-bg) !important; /* fill bg even on autofill */
+}
+
+/* Special: override Chrome/Edge autofill yellow/blue background */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+  box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+}
+
+/* If browser shows outline or white strip, make it consistent */
+input, textarea {
+  background-clip: padding-box !important;
+  outline: none !important;
+}
+
+
+/* End of file */

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>RoomDekho – Find Rooms Across India</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header" style="align-items:center;">
+      <h1>RoomDekho – Find Rooms Across India</h1>
+
+      <div class="header-actions" style="display:flex; gap:10px; align-items:center;">
+        <!-- Theme selector (wired by script.js) -->
+        <select id="themeSelect" class="theme-select" title="Choose theme" aria-label="Choose theme">
+          <option value="pink">Warm</option>
+          <option value="blue">Calm</option>
+          <option value="dark">Dark</option>
+        </select>
+
+        <a href="login.html" class="btn btn-small">Login / Register</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="home-card form-card">
+        <h2 class="small">Welcome</h2>
+        <p class="muted">
+          Find rooms, PGs and hostels across India. Owners can list properties; students and families can search and request leads.
+        </p>
+
+        <div class="home-btns" style="margin-top:18px;">
+          <!-- Replace these if you already added classes in HTML earlier -->
+          <a href="addroom.html" class="btn owner-btn">I Am Owner</a>
+          <a href="finder.html" class="btn finder-btn">I Am Finder</a>
+        </div>
+      </section>
+
+      <section class="preview-card form-card">
+       <h3 class="small">Quick Tips</h3>
+<ul class="small">
+  <li>Upload clear photos for better visibility of your room or property.</li>
+  <li>Use <strong>“Contact Owner”</strong> to send inquiries — owners get leads instantly.</li>
+  <li>Filter by category or use search to find the right room faster.</li>
+</ul>
+      </section>
+    </main>
+
+    <footer class="meta" style="margin-top:18px;">Made with ♥ — RoomDekho prototype</footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Ensure theme selector shows saved value and is wired (script.js also wires it)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof applySavedTheme === 'function') applySavedTheme();
+      const sel = document.getElementById('themeSelect');
+      if (sel) {
+        sel.value = localStorage.getItem('rd_theme') || sel.value || 'pink';
+        sel.addEventListener('change', (e) => {
+          if (typeof setTheme === 'function') setTheme(e.target.value);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

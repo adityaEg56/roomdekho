@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Room Details - RoomDekho</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <h1>Room Details</h1>
+
+      <div class="header-actions">
+        <select id="themeSelect" class="theme-select">
+          <option value="pink">Warm</option>
+          <option value="blue">Calm</option>
+          <option value="dark">Dark</option>
+        </select>
+
+        <a href="index.html" class="btn btn-small btn-secondary">Home</a>
+        <a href="finder.html" class="btn btn-small">Finder</a>
+      </div>
+    </header>
+
+    <!-- Room Details -->
+    <main>
+      <div id="viewRoom" class="form-card"></div>
+    </main>
+
+  </div>
+
+  <!-- Lead Popup -->
+  <div id="leadPopup" style="
+       display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+       background:rgba(0,0,0,0.6); justify-content:center; align-items:center;
+       z-index:9999;">
+    <div class="lead-card" style="
+         background:var(--card-bg); padding:18px; width:92%; max-width:420px;
+         border-radius:12px; color:var(--text);">
+      
+      <h3>Contact Owner</h3>
+
+      <label>Your Name</label>
+      <input type="text" id="leadName" required>
+
+      <label>Your Phone</label>
+      <input type="text" id="leadPhone" required>
+
+      <label>Your Message</label>
+      <textarea id="leadMessage" required></textarea>
+
+      <div style="margin-top:10px; display:flex; gap:8px;">
+        <button class="btn" onclick="submitLead()">Send Inquiry</button>
+        <button class="btn btn-secondary" onclick="closeLead()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof applySavedTheme === 'function') applySavedTheme();
+
+      const sel = document.getElementById('themeSelect');
+      if (sel) {
+        sel.value = localStorage.getItem('rd_theme') || 'pink';
+        sel.addEventListener('change', (e) => setTheme(e.target.value));
+      }
+    });
+  </script>
+  
+</body>
+</html>
